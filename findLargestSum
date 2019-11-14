@@ -1,0 +1,36 @@
+class node {
+    constructor(num) {
+      this.value = num,
+      this.left = null,
+      this.right = null
+    }    
+}
+
+
+
+const findLargestLevel = function(node) {
+    // your code here
+    let largestLevels = [];
+
+    let helper = function(node, level) {
+        if(node === null) {
+            return;
+        }
+
+        if(largestLevels[level] === undefined) {
+            largestLevels[level] = node.value;
+        } else {
+            largestLevels[level] += node.value;
+        }
+
+        helper(node.left, level + 1);
+        helper(node.right, level + 1);
+    }
+
+    helper(node, 0);
+
+    let largestSum = Math.max(...largestLevels);
+    let largestLevel = largestLevels.indexOf(largestSum);
+
+    return largestLevel;
+};
